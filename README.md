@@ -38,13 +38,13 @@ ______________________
 
 ## API Design
 
-###[actors]
+### [actors]
 - '/api/actors/tmdb/movies/:id/credits' | GET | Gets a list of actors with a link below to navigate details page to actors
 
-###[genres]
+### [genres]
 - '/api/genres/tmdb/genres' | GET | Gets all movie genres
 
-###[movies]
+### [movies]
 - '/api/movies/tmdb/movies' | GET | Gets a list of movies 
 - '/api/movies/{id}' | GET | Gets a single movie 
 - '/api/movies/tmdb/upcoming' | GET | Gets upcoming movies
@@ -55,11 +55,11 @@ ______________________
 - '/api/movies/movies/{id}/recommendations' | GET | Gets recommended movies of a single movie 
 
 
-###[reviews]
+### [reviews]
 - '/api/reviews/{id}/reviews' | GET | Gets all reviews for a movie 
 - '/api/reviews/{id}/reviews' | POST | Create a new review for a Movie 
 
-###[users]
+### [users]
 
 - '/api/users/' | GET | Gets all users
 - '/api/users/' | POST | Creates a user
