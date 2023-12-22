@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { getMovie } from '../tmdb-api';
 
 const Schema = mongoose.Schema;
 
@@ -31,7 +32,7 @@ const MovieSchema = new Schema({
 });
 
 MovieSchema.statics.findByMovieDBId = function (id) {
-  return this.findOne({ id: id });
+  return getMovie({ id: id });
 };
 
 export default mongoose.model('Movies', MovieSchema);

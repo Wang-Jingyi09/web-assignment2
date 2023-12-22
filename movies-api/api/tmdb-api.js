@@ -113,7 +113,6 @@ export const getMovieReviews = async (id) => {
     }
 };
 
-//The first endpoint updated: getLatestMovies
 export const getLatestMovies = async () => {
     const currentDate = new Date().toISOString().split('T')[0];
 
@@ -130,7 +129,7 @@ export const getLatestMovies = async () => {
         throw error;
     }
 };
-//The second endpoint
+//acquire cast list 
 export const getMovieCredits = async (id) => {
 
     try {

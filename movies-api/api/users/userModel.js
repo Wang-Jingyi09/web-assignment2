@@ -14,6 +14,7 @@ const passwordValidator = (password) => {
     return regex.test(password);
 }
 UserSchema.path("password").validate(passwordValidator);
+
 UserSchema.methods.comparePassword = async function (passw) {
     return await bcrypt.compare(passw, this.password);
 }
