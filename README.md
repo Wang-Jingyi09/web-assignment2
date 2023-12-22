@@ -6,10 +6,12 @@ Name: Jingyi Wang
 
 A bullet-point list of the ADDITIONAL features you have implemented in the API **THAT WERE NOT IN THE LABS** (or modifications to existing features)
  
- + Feature 1 
- + Feature 2 
- + Feature 3 
- + etc
+ + Add several additional API endpoints, and some of them use parameterised URL that can fetch from TMDB/Mongo
+ + Frontend and backend apps are connected
+ + Several additional API endpoints are called from frontend app
+ + Signup and login included in site header
+ + Some routes are protected (only visible when logging in)
+ + Improve validation of username and passwords, and the error messages will be displayed on frontend.
 
 ## Setup requirements.
 
@@ -18,23 +20,11 @@ A bullet-point list of the ADDITIONAL features you have implemented in the API *
 1. The main branch that tries to push to github contains some previously local submissions.
 The error message fatal: refusing to merge unrelated histories indicates that Git has detected that the local and remote repositories have diverged in such a way that they do not share a common base commit. The error message "Committing is not possible because you have unmerged files." indicates that a file conflict was not resolved when I merged. Git cannot commit because there are unmerged files.
 
-git pull origin main --allow-unrelated-histories
-git commit -m "Resolve conflicts and merge unrelated histories"
-git push origin main
+`git pull origin main --allow-unrelated-histories`
+`git commit -m "Resolve conflicts and merge unrelated histories"`
+`git push origin main`
 
 ## API Configuration
-
-Describe any configuration that needs to take place before running the API. For example, creating an `.env` file and what variables to put in it. Give an example of how this might be done.
-
-REMEMBER: DON'T PUT YOUR OWN USERNAMES/PASSWORDS/AUTH KEYS IN THE README OR ON GITHUB, just placeholders as indicated below:
-
-______________________
-NODEENV=development
-PORT=8080
-HOST=
-mongoDB=YourMongoURL
-seedDb=true
-secret=YourJWTSecret
 ______________________
 
 NODE_ENV=development
@@ -42,30 +32,49 @@ PORT=8080
 HOST=localhost
 MONGO_DB=MongoURL
 TMDB_KEY=tmdb_key
-SECRET=JWTSecret   
+SECRET=JWTSecret       
+______________________
+
 
 ## API Design
-Give an overview of your web API design, perhaps similar to the following: 
 
-- /api/movies | GET | Gets a list of movies 
-- /api/movies/{movieid} | GET | Gets a single movie 
-- /api/movies/{movieid}/reviews | GET | Get all reviews for movie 
-- /api/movies/{movieid}/reviews | POST | Create a new review for Movie 
+###[actors]
+- '/api/actors/tmdb/movies/:id/credits' | GET | Gets a list of actors with a link below to navigate details page to actors
+
+###[genres]
+- '/api/genres/tmdb/genres' | GET | Gets all movie genres
+
+###[movies]
+- '/api/movies/tmdb/movies' | GET | Gets a list of movies 
+- '/api/movies/{id}' | GET | Gets a single movie 
+- '/api/movies/tmdb/upcoming' | GET | Gets upcoming movies
+- '/api/movies/tmdb/movies/{id}/images' | GET | Gets images of a single movie 
+- '/api/movies/tmdb/latest' | GET | Gets latest movies
+- '/api/movies/tmdb/top_rated' | GET | Gets top_rated movies 
+- '/api/movies/tmdb/trending' | GET | Gets trending movies
+- '/api/movies/movies/{id}/recommendations' | GET | Gets recommended movies of a single movie 
+
+
+###[reviews]
+- '/api/reviews/{id}/reviews' | GET | Gets all reviews for a movie 
+- '/api/reviews/{id}/reviews' | POST | Create a new review for a Movie 
+
+###[users]
+
+- '/api/users/' | GET | Gets all users
+- '/api/users/' | POST | Creates a user
+- '/api/users/{id}' | PUT | Updates a user
+
 
 If you have your API design on an online platform or graphic, please link to it (e.g. [Swaggerhub](https://app.swaggerhub.com/)).
 
 ## Security and Authentication
 
-Give details of authentication/security implemented on the API (e.g. passport/sessions). Indicate which routes are protected.
+Authentication is utilized to manage user sessions like favorite page.
 
 ## Integrating with React App
 
-Describe how you integrated your React app with the API. List the views that use your Web API instead of the TMDB API. Describe any other updates to the React app from Assignment One.
-
-1. Integrate the package.json in react app (npm install)
-1. Integrate the source code from assignment 1.
- 
-
-## Independent learning (if relevant)
-
-Briefly explain any non-standard features developed for the app.
++ Integrate the package.json in react app (npm install)
++ Integrate the source code from assignment 1.
++ Several additional API endpoints are called from frontend app
++ When a user attempts to access a protected page, they are redirected to the login page.

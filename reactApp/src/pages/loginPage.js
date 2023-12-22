@@ -8,10 +8,13 @@ const LoginPage = props => {
 
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
 
     const login = () => {
-        context.authenticate(userName, password);
-        console.log(context.isAuthenticated)
+        context.authenticate(userName, password).catch(error => {
+            setErrorMessage("Invalid username or password.");
+        });
+        // console.log(context.isAuthenticated)
     };
 
     let location = useLocation();
@@ -36,6 +39,8 @@ const LoginPage = props => {
                 setPassword(e.target.value);
             }}></input><br />
             {/* Login web form  */}
+            {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+
             <button onClick={login}>Log in</button>
             <p>Not Registered?
                 <Link to="/signup">Sign Up!</Link></p>

@@ -8,15 +8,32 @@ const SignUpPage = props => {
     const [password, setPassword] = useState("");
     const [passwordAgain, setPasswordAgain] = useState("");
     const [registered, setRegistered] = useState(false);
+    const [passwordError, setPasswordError] = useState("");
 
     const register = () => {
         let passwordRegEx = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
         const validPassword = passwordRegEx.test(password);
 
-        if (validPassword && password === passwordAgain) {
-            context.register(userName, password);
-            setRegistered(true);
+        if (!validPassword) {
+            setPasswordError("Password must contain at least 8 characters, including one letter, one number and one special character. Please try again.");
+            return;
         }
+
+        if (password !== passwordAgain) {
+            setPasswordError("Passwords do not match.");
+            return;
+        }
+
+        // context.register(userName, password);
+        // setRegistered(true);
+        context.register(userName, password)
+            .then(success => {
+                if (success) {
+                    setRegistered(true);
+                } else {
+                    setPasswordError("Registration failed. Please try again."); 
+                }
+            });
     }
 
     if (registered === true) {
@@ -27,6 +44,7 @@ const SignUpPage = props => {
         <>
             <h2>SignUp page</h2>
             <p>You must register a username and password to log in </p>
+            <p>Password must contain at least 8 characters, including one letter, one number and one special character.</p>
             <input value={userName} placeholder="user name" onChange={e => {
                 setUserName(e.target.value);
             }}></input><br />
@@ -37,6 +55,8 @@ const SignUpPage = props => {
                 setPasswordAgain(e.target.value);
             }}></input><br />
             {/* Login web form  */}
+            {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
+
             <button onClick={register}>Register</button>
         </>
     );

@@ -8,6 +8,7 @@ const AuthContextProvider = (props) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [, setAuthToken] = useState(existingToken);
     const [userName, setUserName] = useState("");
+    const [authError, setAuthError] = useState(null); // 新增一个状态来存储认证错误
 
     //Function to put JWT token in local storage.
     const setToken = (data) => {
@@ -16,18 +17,36 @@ const AuthContextProvider = (props) => {
     }
 
     const authenticate = async (username, password) => {
-        const result = await login(username, password);
-        if (result.token) {
-            setToken(result.token)
-            setIsAuthenticated(true);
-            setUserName(username);
+        try {
+            const result = await login(username, password);
+            if (result.token) {
+                setToken(result.token)
+                setIsAuthenticated(true);
+                setUserName(username);
+                setAuthError(null);
+            } else {
+                throw new Error('Invalid login credentials'); 
+            }
+        } catch (error) {
+            setAuthError(error.message);
         }
     };
 
     const register = async (username, password) => {
-        const result = await signup(username, password);
-        console.log(result.code);
-        return (result.code === 201) ? true : false;
+        // const result = await signup(username, password);
+        // console.log(result.code);
+        // return (result.code === 201) ? true : false;
+        try {
+            const result = await signup(username, password);
+            if (result.code === 201) {
+                return true;
+            } else {
+                throw new Error('Registration failed'); 
+            }
+        } catch (error) {
+            setAuthError(error.message); 
+            return false;
+        }
     };
 
     const signout = () => {
@@ -41,7 +60,8 @@ const AuthContextProvider = (props) => {
                 authenticate,
                 register,
                 signout,
-                userName
+                userName,
+                authError 
             }}
         >
             {props.children}
