@@ -4,11 +4,8 @@ import express from 'express';
 import { getMovie } from '../tmdb-api';
 import { getMovies } from '../tmdb-api';
 import { getUpcomingMovies } from '../tmdb-api';
-// import { getMoviesGenres } from '../tmdb-api';
 import { getMovieImages } from '../tmdb-api';
-// import { getMovieReviews } from '../tmdb-api';
 import { getLatestMovies } from '../tmdb-api';
-// import { getMovieCredits } from '../tmdb-api';
 import { getTopRatedMovies } from '../tmdb-api';
 import { getTrendingMovies } from '../tmdb-api';
 import { getMovieRecommendations } from '../tmdb-api';
@@ -69,29 +66,18 @@ router.get('/tmdb/upcoming', asyncHandler(async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }));
-// router.get('/tmdb/genres', asyncHandler(async (req, res) => {
-//     const genres = await getMoviesGenres();
-//     res.status(200).json(genres);
-// }));
+
 router.get('/tmdb/movies/:id/images', asyncHandler(async (req, res) => {
     const { id } = req.params;
     const images = await getMovieImages({ queryKey: ['images', { id }] });
     res.status(200).json(images);
 }));
-// router.get('/tmdb/movies/:id/reviews', asyncHandler(async (req, res) => {
-//     const { id } = req.params;
-//     const reviews = await getMovieReviews(id);
-//     res.status(200).json(reviews);
-// }));
+
 router.get('/tmdb/latest', asyncHandler(async (req, res) => {
     const latestMovies = await getLatestMovies();
     res.status(200).json(latestMovies);
 }));
-// router.get('/tmdb/movies/:id/credits', asyncHandler(async (req, res) => {
-//     const { id } = req.params;
-//     const credits = await getMovieCredits(id);
-//     res.status(200).json(credits);
-// }));
+
 router.get('/tmdb/top_rated', asyncHandler(async (req, res) => {
     const topRatedMovies = await getTopRatedMovies();
     res.status(200).json(topRatedMovies);

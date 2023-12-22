@@ -131,7 +131,6 @@ export const getLatestMovies = async () => {
 };
 //acquire cast list 
 export const getMovieCredits = async (id) => {
-
     try {
         const response = await fetch(
             `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.REACT_APP_TMDB_KEY}`

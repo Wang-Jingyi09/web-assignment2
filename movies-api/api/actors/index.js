@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/tmdb/movies/:id/credits', asyncHandler(async (req, res) => {
     try {
-        const id = req.params;
+        const id = req.params.id;
         const credits = await getMovieCredits(id);
         res.status(200).json(credits);
 

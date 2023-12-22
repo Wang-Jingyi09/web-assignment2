@@ -11,7 +11,7 @@ import MovieRecommendations from "../components/movieRecommendations"; // Import
 const MoviePage = () => {
   const { id } = useParams();
   const { data: movie, error, isLoading, isError } = useQuery(
-    ["movie", { id: id }],
+    ["movie", { mid: id }],
     getMovie
   );
 

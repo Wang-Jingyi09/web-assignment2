@@ -5,6 +5,7 @@ import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
 
+
 const HomePage = () => {
   const { data, error, isLoading, isError } = useQuery(
     'discover', getMovies,
@@ -22,6 +23,8 @@ const HomePage = () => {
     return <h1>{error.message}</h1>
   }
   const movies = data?.results || [];
+
+  
 
   // Redundant, but necessary to avoid app crashing.
   const favorites = movies.filter(m => m.favorite)

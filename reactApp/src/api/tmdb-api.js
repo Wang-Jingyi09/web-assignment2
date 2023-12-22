@@ -2,7 +2,7 @@
 export const getMovies = async () => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/movies/tmdb/discover`, {
+      `http://localhost:8080/api/movies/tmdb/movies`, {
       method: 'GET',
     });
     if (!response.ok) {
@@ -15,9 +15,11 @@ export const getMovies = async () => {
 };
 
 export const getMovie = async (id) => {
+  const [, secondElement] = id.queryKey;
+  const { mid } = secondElement
   try {
     const response = await fetch(
-      `http://localhost:8080/api/movies/tmdb/movie/${id}`, {
+      `http://localhost:8080/api/movies/tmdb/movie/${mid}`, {
       method: 'GET'
     });
     if (!response.ok) {
@@ -53,7 +55,7 @@ export const signup = async (username, password) => {
 
 export const getGenres = async () => {
   try {
-    const response = await fetch(`http://localhost:8080/genres/tmdb/genres`, {
+    const response = await fetch(`http://localhost:8080/api/genres/tmdb/genres`, {
       method: 'GET',
     });
 
