@@ -106,7 +106,7 @@ export const getUpcomingMovies = async (page = 1) => {
 export const getMovieReviews = async (id) => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/movies/tmdb/${id}/reviews`, {
+      `http://localhost:8080/api/reviews/tmdb/movies/${id}/reviews`, {
       method: 'GET',
     });
     if (!response.ok) {

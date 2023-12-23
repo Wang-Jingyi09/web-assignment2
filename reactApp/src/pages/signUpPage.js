@@ -12,13 +12,16 @@ const SignUpPage = props => {
 
     const register = () => {
         let passwordRegEx = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-        const validPassword = passwordRegEx.test(password);
+        // const validPassword = passwordRegEx.test(password);
 
-        if (!validPassword) {
-            setPasswordError("Password must contain at least 8 characters, including one letter, one number and one special character. Please try again.");
+        // if (!validPassword) {
+        //     setPasswordError("Password must contain at least 8 characters, including one letter, one number and one special character. Please try again.");
+        //     return;
+        // }
+        if (!passwordRegEx.test(password)) {
+            setPasswordError("Password must contain at least 8 characters, including one letter, one number and one special character.");
             return;
         }
-
         if (password !== passwordAgain) {
             setPasswordError("Passwords do not match.");
             return;
@@ -31,18 +34,24 @@ const SignUpPage = props => {
                 if (success) {
                     setRegistered(true);
                 } else {
-                    setPasswordError("Registration failed. Please try again."); 
+                    setPasswordError("Registration failed. Please try again.");
                 }
+            })
+            .catch(error => {
+                setPasswordError(error.message || "An unexpected error occurred. Please try again.");
+
             });
     }
 
     if (registered === true) {
-        return <Navigate to="/login" />;
+        return <Navigate to="/login" replace = {true}/>;
     }
 
     return (
         <>
             <h2>SignUp page</h2>
+            {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
+
             <p>You must register a username and password to log in </p>
             <p>Password must contain at least 8 characters, including one letter, one number and one special character.</p>
             <input value={userName} placeholder="user name" onChange={e => {
@@ -55,7 +64,6 @@ const SignUpPage = props => {
                 setPasswordAgain(e.target.value);
             }}></input><br />
             {/* Login web form  */}
-            {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
 
             <button onClick={register}>Register</button>
         </>

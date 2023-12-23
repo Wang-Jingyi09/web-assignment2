@@ -32,6 +32,7 @@ const LoginPage = props => {
         <>
             <h2>Login page</h2>
             <p>You must log in to view the protected pages </p>
+            {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
             <input id="username" placeholder="user name" onChange={e => {
                 setUserName(e.target.value);
             }}></input><br />
@@ -39,7 +40,7 @@ const LoginPage = props => {
                 setPassword(e.target.value);
             }}></input><br />
             {/* Login web form  */}
-            {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+            
 
             <button onClick={login}>Log in</button>
             <p>Not Registered?

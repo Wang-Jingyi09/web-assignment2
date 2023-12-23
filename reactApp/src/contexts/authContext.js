@@ -8,7 +8,7 @@ const AuthContextProvider = (props) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [, setAuthToken] = useState(existingToken);
     const [userName, setUserName] = useState("");
-    const [authError, setAuthError] = useState(null); // 新增一个状态来存储认证错误
+    const [authError, setAuthError] = useState(null); 
 
     //Function to put JWT token in local storage.
     const setToken = (data) => {
